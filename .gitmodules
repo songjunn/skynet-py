@@ -1,0 +1,3 @@
+[submodule "skynet-octopus"]
+	path = skynet-octopus
+	url = https://github.com/songjunn/skynet-octopus.git
