@@ -19,13 +19,9 @@ class GameServerHandler(Singleton):
 	def tick(self):
 		pass
 
-	def handleClientEvent(self, message):
-		print("message={%s}" % (message))
-		fd, addr_size = struct.unpack_from('=ih', message, 0)
-		print("fd=%d addr_size=%d" % {fd, addr_size})
-		data_size = len(message) - addr_size- 8
-		print("data_size=%d len(message)=%d" % (data_size, len(message)))
-		addr, type, req = struct.unpack_from('='+str(addr_size)+'sH'+str(data_size)+'s', message, 6)
+	def handleClientEvent(self, fd, message, sz):
+		print("fd=%d sz=%d message={%s}" % (fd, sz, message))
+		type, req = struct.unpack_from('i'+str(sz)+'s', message, 0)
 
 		guest = register.protocols.get(type)
 		guest.ParseFromString(req)

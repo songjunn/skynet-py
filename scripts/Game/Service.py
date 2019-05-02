@@ -28,7 +28,7 @@ def handle(handle, source, session, type, msg):
 def handleTextMsg(handle, source, session, msg):
 	cmd = msg.split('|')
 	if cmd[0] == 'forward':
-		GameServerHandler().handleClientEvent(cmd[2])
+		GameServerHandler().handleClientEvent(session, cmd[2], int(cmd[1]))
 	elif cmd[0] == 'accept':
 		pass
 	elif cmd[0] == 'disconnect':
