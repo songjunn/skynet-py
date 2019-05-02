@@ -20,8 +20,11 @@ class GameServerHandler(Singleton):
 		pass
 
 	def handleClientEvent(self, message):
+		print("message={%s}" % (message))
 		fd, addr_size = struct.unpack_from('=ih', message, 0)
+		print("fd=%d addr_size=%d" % {fd, addr_size})
 		data_size = len(message) - addr_size- 8
+		print("data_size=%d len(message)=%d" % (data_size, len(message)))
 		addr, type, req = struct.unpack_from('='+str(addr_size)+'sH'+str(data_size)+'s', message, 6)
 
 		guest = register.protocols.get(type)
