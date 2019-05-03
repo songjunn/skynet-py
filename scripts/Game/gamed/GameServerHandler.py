@@ -21,11 +21,11 @@ class GameServerHandler(Singleton):
 
 	def handleClientEvent(self, fd, message, sz):
 		print("fd=%d sz=%d message={%s}" % (fd, sz, message))
-		type, req = struct.unpack_from('i'+str(sz)+'s', message, 0)
+		type, req = struct.unpack_from('i'+str(sz-4)+'s', message, 0)
 
 		guest = register.protocols.get(type)
 		guest.ParseFromString(req)
-		print("Recv message %d size %d: {%s}" % (type, data_size, text_format.MessageToString(guest, True, True)))
+		print("Recv message %d size %d: {%s}" % (type, sz, text_format.MessageToString(guest, True, True)))
 		
 		register.handlers.get(type)(guest)
 
