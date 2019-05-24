@@ -27,7 +27,7 @@ def start():
         BotsMgr().addBotsByIdx(i, bots)
 
     threads = [
-        gevent.spawn(createTyjhBots, i, "192.168.0.134", "17001") for i in xrange(1)]
+        gevent.spawn(createTyjhBots, i, "127.0.0.1", 17001) for i in xrange(1)]
     gevent.joinall(threads)
 
     while True:

@@ -1,33 +1,22 @@
 import os, sys
-import ctypes
-import platform
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+import skynet
 from gamed.GameServerHandler import GameServerHandler
 
-if platform.system() == 'Windows':
-    lib = ctypes.cdll.LoadLibrary(os.path.abspath(os.path.dirname(__file__))+'/../../skynet.dll')
-elif platform.system() =='Linux':
-    lib = ctypes.cdll.LoadLibrary(os.path.abspath(os.path.dirname(__file__))+'/../../libskynet.so')
-
-SERVICE_TEXT = 0
-SERVICE_SOCKET = 1
-SERVICE_TIMER = 2
-SERVICE_REMOTE = 3
-
-
 def create(nid, handle):
+	skynet.set_source(handle)
 	GameServerHandler().start(nid)
-	lib.skynet_logger_print(0, 0, b"Game service start...")
+	skynet.logger_notice(b"Game service start")
 
 def release():
 	pass
 
 def handle(handle, source, session, type, msg):
 	print(type, source, msg, len(msg))
-	lib.skynet_logger_print(0, 0, b"test skynet logger...")
-	if type == SERVICE_TEXT: 
+	skynet.logger_notice(b"test skynet logger...")
+	if type == skynet.SERVICE_TEXT: 
 		handleTextMsg(handle, source, session, msg)
-	elif type == SERVICE_TIMER:
+	elif type == skynet.SERVICE_TIMER:
 		handleTimerMsg(handle, source, session, msg)
 	else:
 		print('error handle message')
