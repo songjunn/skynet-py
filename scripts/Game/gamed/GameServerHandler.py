@@ -21,7 +21,8 @@ class GameServerHandler(Singleton):
 
 	def handleClientEvent(self, fd, message, sz):
 		print("fd=%d sz=%d message={%s}" % (fd, sz, message))
-		type, req = struct.unpack_from('i'+str(sz-4)+'s', message, 0)
+		message = message.encode()
+		type, req = struct.unpack('i'+str(sz-4)+'s', message)
 
 		guest = register.protocols.get(type)
 		guest.ParseFromString(req)

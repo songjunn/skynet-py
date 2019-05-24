@@ -36,7 +36,6 @@ def handle(handle, source, session, type, msg):
 def handleTextMsg(handle, source, session, msg):
 	cmd = msg.split('|')
 	if cmd[0] == 'forward':
-		pass
 		GameServerHandler().handleClientEvent(session, cmd[2], int(cmd[1]))
 	elif cmd[0] == 'connect':
 		print('py accept fd=%d addr=%s' % (session, msg))
