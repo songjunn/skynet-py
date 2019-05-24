@@ -1,9 +1,13 @@
-import os, sys 
-sys.path.append("../lib")
-sys.path.append("../../lib")
+import os, sys
+import ctypes
+import platform
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-import pySkynet
 from gamed.GameServerHandler import GameServerHandler
+
+if platform.system() == 'Windows':
+    lib = ctypes.cdll.LoadLibrary(os.path.abspath(os.path.dirname(__file__))+'/../../skynet.dll')
+elif platform.system() =='Linux':
+    lib = ctypes.cdll.LoadLibrary(os.path.abspath(os.path.dirname(__file__))+'/../../libskynet.so')
 
 SERVICE_TEXT = 0
 SERVICE_SOCKET = 1
@@ -13,13 +17,14 @@ SERVICE_REMOTE = 3
 
 def create(nid, handle):
 	GameServerHandler().start(nid)
+	lib.skynet_logger_print(0, 0, b"Game service start...")
 
 def release():
 	pass
 
 def handle(handle, source, session, type, msg):
 	print(type, source, msg, len(msg))
-	pySkynet.skynet_logger_debug(source, 'test skynet logger')
+	lib.skynet_logger_print(0, 0, b"test skynet logger...")
 	if type == SERVICE_TEXT: 
 		handleTextMsg(handle, source, session, msg)
 	elif type == SERVICE_TIMER:
@@ -31,6 +36,7 @@ def handle(handle, source, session, type, msg):
 def handleTextMsg(handle, source, session, msg):
 	cmd = msg.split('|')
 	if cmd[0] == 'forward':
+		pass
 		GameServerHandler().handleClientEvent(session, cmd[2], int(cmd[1]))
 	elif cmd[0] == 'connect':
 		print('py accept fd=%d addr=%s' % (session, msg))

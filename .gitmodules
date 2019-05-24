@@ -1,6 +1,3 @@
 [submodule "skynet-octopus"]
 	path = skynet-octopus
 	url = https://github.com/songjunn/skynet-octopus.git
-[submodule "bots"]
-	path = bots
-	url = https://github.com/songjunn/bots.git
