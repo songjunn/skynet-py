@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from message import MessageTypeDefine_pb2
-from message import MessageUser_pb2
+import message.MessageTypeDefine_pb2 as MessageTypeDefine_pb2
+import message.MessageUser_pb2 as MessageUser_pb2
 
-#from handler import userHandler
 import handler.userHandler as userHandler
 
 protocols = {

@@ -22,16 +22,16 @@ def set_source(value):
 	source = value
 
 def logger_debug(text):
-	skynet.skynet_logger_print(source, LOGGER_DEBUG, text)
+	skynet.skynet_logger_print(source, LOGGER_DEBUG, ctypes.c_char_p(text.encode('utf-8')))
 
 def logger_warn(text):
-	skynet.skynet_logger_print(source, LOGGER_WARN, text)
+	skynet.skynet_logger_print(source, LOGGER_WARN, ctypes.c_char_p(text.encode('utf-8')))
 
 def logger_notice(text):
-	skynet.skynet_logger_print(source, LOGGER_NOTICE, text)
+	skynet.skynet_logger_print(source, LOGGER_NOTICE, ctypes.c_char_p(text.encode('utf-8')))
 
 def logger_error(text):
-	skynet.skynet_logger_print(source, LOGGER_ERROR, text)
+	skynet.skynet_logger_print(source, LOGGER_ERROR, ctypes.c_char_p(text.encode('utf-8')))
 
 def service_send(target, session, type, msg):
 	skynet.skynet_sendhandle(target, source, session, type, msg, len(msg))

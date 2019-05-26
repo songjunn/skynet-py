@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import struct
+import skynet
 from utils.Singleton import Singleton
 from google.protobuf import text_format
 from handler import register
@@ -12,9 +13,10 @@ class GameServerHandler(Singleton):
 
 	def start(self, id):
 		self.nid_ = id
+		skynet.logger_debug('Game service start, id={}'.format(self.nid_))
 
 	def quit(self):
-		pass
+		skynet.logger_debug('Game service quit, id={}'.format(self.nid_))
 
 	def tick(self):
 		pass
@@ -26,7 +28,7 @@ class GameServerHandler(Singleton):
 
 		guest = register.protocols.get(type)
 		guest.ParseFromString(req)
-		print("Recv message %d size %d: {%s}" % (type, sz, text_format.MessageToString(guest, True, True)))
+		skynet.logger_debug("Recv message {} size {}: {}".format(type, sz, text_format.MessageToString(guest, True, True)))
 		
 		register.handlers.get(type)(guest)
 
