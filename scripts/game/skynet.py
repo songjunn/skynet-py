@@ -1,4 +1,4 @@
-import os, ctypes, platform
+import os, ctypes, platform, struct
 
 if platform.system() == 'Windows':
     skynet = ctypes.cdll.LoadLibrary(os.path.abspath(os.path.dirname(__file__))+'/../../skynet.dll')
@@ -34,7 +34,20 @@ def logger_error(text):
 	skynet.skynet_logger_print(source, LOGGER_ERROR, ctypes.c_char_p(text.encode('utf-8')))
 
 def service_send(target, session, type, msg):
-	skynet.skynet_sendhandle(target, source, session, type, msg, len(msg))
+	print('target=%d session=%d type=%d msg=%s len=%d' % (target, session, type, msg, len(msg)))
+	skynet.skynet_sendhandle(target, source, session, type, ctypes.c_char_p(msg.encode('utf-8')), len(msg))
 
 def service_return(target, session, type, msg):
 	pass
+
+def http_response_send(target, fd, msg):
+	data = 'response|' + str(fd) + '|' + msg
+	service_send(target, fd, SERVICE_TEXT, data)
+
+def gate_forward_send(target, fd, msg):
+	data = 'forward|' + msg
+	service_send(target, fd, SERVICE_TEXT, data)
+
+def gate_kick_send(target, fd):
+	data = 'kick'
+	service_send(target, fd, SERVICE_TEXT, data)

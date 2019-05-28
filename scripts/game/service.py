@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import skynet
-import hotfix
+import command
 import gamed.GameServerHandler as GameServerHandler
 
 def create(nid, handle):
@@ -33,25 +33,9 @@ def handleTextMsg(handle, source, session, msg):
 	elif cmd == 'disconnect':
 		print('py disconnect fd=%d' % (session))
 	elif cmd == 'http':
-		handleHttpMsg(data)
+		command.handleRequest(source, session, data)
 	else:
 		pass
-
-def handleHttpMsg(msg):
-	skynet.logger_debug('recv http data: {}'.format(msg))
-	
-	args = {}
-	p = msg.split('?', 1)
-	route = p[0]
-	t = p[1].split('&')
-	for item in t:
-		pos = item.index('=')
-		k = item[0:pos]
-		v = item[pos+1:]
-		args[k] = v
-
-	if route == '/gm/reload':
-		hotfix.reload(args['module'])
 
 def handleTimerMsg(handle, source, session, msg):
 	pass
