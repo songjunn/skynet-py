@@ -51,3 +51,7 @@ def gate_forward_send(target, fd, msg):
 def gate_kick_send(target, fd):
 	data = 'kick'
 	service_send(target, fd, SERVICE_TEXT, data)
+
+#def mongo_insert(dbname, dbcollec, jsonData):
+#	data = 'insert|{}|{}|{}'.format(dbname, dbcollec, jsonData)
+#	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(data.encode('utf-8')), len(data))
