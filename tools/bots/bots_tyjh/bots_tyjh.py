@@ -65,5 +65,5 @@ class TyjhBots(Bots):
         msg = MessageUser_pb2.C2SUserLogin()
         msg.appid = "tyjh2"
         msg.userid = "wx_sj1"
-        msg.ticket = "1545317157384"
+        msg.ticket = "1545317157384000"
         self.sendMsg(MessageTypeDefine_pb2.C2S_USER_LOGIN, msg)

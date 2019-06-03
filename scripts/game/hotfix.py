@@ -1,6 +1,7 @@
 import importlib
 import skynet
-import gamed.GameServerHandler as GameServerHandler
+import hotfix
+import command
 
 import handler.register as register
 import handler.userHandler as userHandler
@@ -13,8 +14,10 @@ def reload(name):
 
 	if name == 'skynet':
 		importlib.reload(skynet)
-	elif name == 'GameServerHandler':
-		importlib.reload(GameServerHandler)
+	elif name == 'hotfix':
+		importlib.reload(hotfix)
+	elif name == 'command':
+		importlib.reload(command)
 
 	elif name == 'register':
 		importlib.reload(register)
