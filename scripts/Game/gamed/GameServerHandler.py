@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import struct
 import skynet
+import utils.MongoDB as MongoDB
 from utils.Singleton import Singleton
 from google.protobuf import text_format
 from handler import register
 
 class GameServerHandler(Singleton):
+	mongoDb = None
 
 	def __init__(self):
 		super(GameServerHandler, self).__init__()
@@ -13,6 +15,11 @@ class GameServerHandler(Singleton):
 
 	def start(self, id):
 		self.nid_ = id
+
+		self.mongoDb = MongoDB.MongoDB()
+		self.mongoDb.connect('mongodb://127.0.0.1:27017')
+		self.mongoDb.setDatabase('tyjh2-game3')
+
 		skynet.logger_debug('Game service start, id={}'.format(self.nid_))
 
 	def quit(self):
@@ -32,3 +39,20 @@ class GameServerHandler(Singleton):
 		
 		register.handlers.get(type)(guest)
 
+	def insertDb(self, collection, value):
+		self.mongoDb.insert(collection, value)
+
+	def updateDb(self, collection, query, value):
+		self.mongoDb.update(collection, query, value)
+
+	def upsertDb(self, collection, query, value):
+		self.mongoDb.upsert(collection, query, value)
+
+	def removeDb(self, collection, query):
+		self.mongoDb.remove(collection, query)
+
+	def findOne(self, collection, query):
+		self.mongoDb.findOne(collection, query)
+
+	def findAll(self, collection, query):
+		self.mongoDb.findAll(collection, query)
