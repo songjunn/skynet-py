@@ -1,5 +1,6 @@
 import json
 import pymongo
+import asyncio
 import skynet
 
 class MongoDB(object):
@@ -19,38 +20,38 @@ class MongoDB(object):
 	def setDatabase(self, dbname):
 		self.database = self.conn[dbname]
 
-	def insert(self, collection, value):
+	async def insert(self, collection, value):
 		skynet.logger_debug('[MongoDB] insert '+collection+':'+json.dumps(value))
 		self.database[collection].insert(value)
 
-	def update(self, collection, query, value):
+	async def update(self, collection, query, value):
 		skynet.logger_debug('[MongoDB] update '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
 		self.database[collection].update(query, value, {upsert:False, multi:True})
 
-	def upsert(self, collection, query, value):
+	async def upsert(self, collection, query, value):
 		skynet.logger_debug('[MongoDB] upsert '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
 		self.database[collection].upsert(query, value, {upsert:True, multi:True})
 
-	def remove(self, collection, query):
+	async def remove(self, collection, query):
 		skynet.logger_debug('[MongoDB] remove '+collection+':'+json.dumps(query))
 		self.database[collection].remove(query)
 
-	def findAll(self, collection, query):
+	async def findAll(self, collection, query):
 		return self.database[collection].find(query)
 
-	def findOne(self, collection, query):
+	async def findOne(self, collection, query):
 		return self.database[collection].find_one(query)
 
-	def findBySort(self, collection, query, sort):
+	async def findBySort(self, collection, query, sort):
 		return self.database[collection].find(query).sort(sort)
 
-	def findBySkip(self, collection, query, skip):
+	async def findBySkip(self, collection, query, skip):
 		return self.database[collection].find(query).skip(skip)
 
-	def findByLimit(self, collection, query, limit):
+	async def findByLimit(self, collection, query, limit):
 		return self.database[collection].find(query).limit(limit)
 
-	def find(self, collection, query, sort=None, limit=0, skip=0):
+	async def find(self, collection, query, sort=None, limit=0, skip=0):
 		if sort != None and limit > 0 and skip > 0:
 			return self.database[collection].find(query).sort(sort).skip(skip).limit(limit)
 		elif sort != None and limit > 0:

@@ -16,6 +16,7 @@ SERVICE_TEXT = 0
 SERVICE_SOCKET = 1
 SERVICE_TIMER = 2
 SERVICE_REMOTE = 3
+SERVICE_RESPONSE = 4
 
 def set_source(value):
 	global source
@@ -37,9 +38,6 @@ def service_send(target, session, type, msg):
 	print('target=%d session=%d type=%d msg=%s len=%d' % (target, session, type, msg, len(msg)))
 	skynet.skynet_sendhandle(target, source, session, type, ctypes.c_char_p(msg.encode('utf-8')), len(msg))
 
-def service_return(target, session, type, msg):
-	pass
-
 def http_response_send(target, fd, msg):
 	data = 'response|' + str(fd) + '|' + msg
 	service_send(target, fd, SERVICE_TEXT, data)
@@ -52,6 +50,10 @@ def gate_kick_send(target, fd):
 	data = 'kick'
 	service_send(target, fd, SERVICE_TEXT, data)
 
-#def mongo_insert(dbname, dbcollec, jsonData):
-#	data = 'insert|{}|{}|{}'.format(dbname, dbcollec, jsonData)
-#	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(data.encode('utf-8')), len(data))
+def mongo_find_one(sid, dbname, collec, query):
+	s = 'findone|{}|{}|{}'.format(dbname, collec, query)
+	skynet.skynet_sendname(b'mongo', source, sid, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))
+
+def mongo_insert(dbname, dbcollec, jsonData):
+	s = 'insert|{}|{}|{}'.format(dbname, dbcollec, jsonData)
+	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))

@@ -2,6 +2,7 @@ import os, sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import skynet
 import command
+import utils.Coroutine as Coroutine
 import gamed.GameServerHandler as GameServerHandler
 
 def create(nid, handle):
@@ -17,6 +18,8 @@ def handle(handle, source, session, type, msg):
 		handleTextMsg(handle, source, session, msg)
 	elif type == skynet.SERVICE_TIMER:
 		handleTimerMsg(handle, source, session, msg)
+	elif type == skynet.SERVICE_RESPONSE:
+		handleResponseMsg(handle, source, session, msg)
 	else:
 		skynet.logger_error('error handle message')
 
@@ -39,3 +42,6 @@ def handleTextMsg(handle, source, session, msg):
 
 def handleTimerMsg(handle, source, session, msg):
 	pass
+
+def handleResponseMsg(handle, source, session, msg):
+	Coroutine.send(session, msg)
