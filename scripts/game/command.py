@@ -4,12 +4,13 @@ import hotfix
 def parser(url, args):
 	p = url.split('?', 1)
 	route = p[0]
-	t = p[1].split('&')
-	for item in t:
-		pos = item.index('=')
-		k = item[0:pos]
-		v = item[pos+1:]
-		args[k] = v
+	if len(p) > 1:
+		t = p[1].split('&')
+		for item in t:
+			pos = item.index('=')
+			k = item[0:pos]
+			v = item[pos+1:]
+			args[k] = v
 	return route
 
 def response(data):
@@ -27,6 +28,6 @@ def handleRequest(source, fd, url):
 	route = parser(url, args)
 
 	if route == '/gm/reload':
-		resp = hotfix.reload(args['module'])
+		resp = hotfix.reload()
 
 	skynet.http_response_send(source, fd, response('success'))

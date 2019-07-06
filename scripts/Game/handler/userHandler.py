@@ -14,7 +14,6 @@ def handleC2SGuestLogin(data):
 	pass
 
 def handleC2SUserLogin(sid, **kwargs):
-	#j = text_format.MessageToString(data, True, True)
 	data = kwargs['data']
 	j = {}
 	j['appid'] = data.appid
@@ -22,20 +21,11 @@ def handleC2SUserLogin(sid, **kwargs):
 	j['ticket'] = data.ticket
 
 	q = {}
-	q['userid'] = 'jun'
+	q['userid'] = data.userid
 
-	#skynet.mongo_insert('user', 'user', json.dumps(j))
-
-	#def generator(sid, **kwargs):
-	skynet.mongo_find_one(sid, 'user', 'user', json.dumps(q))
+	skynet.mongo_findone(sid, 'user', 'user', json.dumps(q))
 	userData = yield
 	print('userData: %s' % (userData))
 
-	print('2222222222')
-	#Coroutine.create(generator)
-	
-	#res = GameServerHandler.GameServerHandler().findOne('user', {'userid': j['userid']})
-	#if res == None:
-	#	GameServerHandler.GameServerHandler().insertDb('user', j)
-	#else:
-	#	GameServerHandler.GameServerHandler().updateDb('user', {'userid': j['userid']}, j)
+	if userData == '':
+		skynet.mongo_insert('user', 'user', json.dumps(j))

@@ -1,11 +1,12 @@
 import os, sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)+'/../common'))
 import skynet
 import command
 import utils.Coroutine as Coroutine
 import gamed.GameServerHandler as GameServerHandler
 
-def create(nid, handle):
+def create(nid, handle, args):
 	skynet.set_source(handle)
 	GameServerHandler.GameServerHandler().start(nid)
 

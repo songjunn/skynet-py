@@ -50,10 +50,10 @@ def gate_kick_send(target, fd):
 	data = 'kick'
 	service_send(target, fd, SERVICE_TEXT, data)
 
-def mongo_find_one(sid, dbname, collec, query):
+def mongo_findone(sid, dbname, collec, query):
 	s = 'findone|{}|{}|{}'.format(dbname, collec, query)
 	skynet.skynet_sendname(b'mongo', source, sid, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))
 
-def mongo_insert(dbname, dbcollec, jsonData):
-	s = 'insert|{}|{}|{}'.format(dbname, dbcollec, jsonData)
+def mongo_insert(dbname, dbcollec, value):
+	s = 'insert|{}|{}|{}'.format(dbname, dbcollec, value)
 	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))
