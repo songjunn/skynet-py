@@ -14,7 +14,8 @@ def create(nid, handle, args):
 	mongo.connect('mongodb://127.0.0.1:27017')
 
 def release():
-	pass
+	global mongo
+	del mongo
 
 def handle(handle, source, session, type, msg):
 	print(type, source, msg, len(msg))
