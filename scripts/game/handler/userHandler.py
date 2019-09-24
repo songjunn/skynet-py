@@ -3,7 +3,6 @@
 import json
 import skynet
 import utils.Coroutine as Coroutine
-import gamed.GameServerHandler as GameServerHandler
 import google.protobuf.text_format as text_format
 
 import message.MessageTypeDefine_pb2 as MessageTypeDefine_pb2
