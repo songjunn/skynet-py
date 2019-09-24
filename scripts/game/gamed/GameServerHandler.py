@@ -19,7 +19,7 @@ class GameServerHandler(Singleton.Singleton):
 		skynet.logger_debug('Game service quit, id={}'.format(self.nid_))
 
 	def tick(self):
-		pass
+		skynet.logger_debug('server handler tick...')
 
 	def handleClientEvent(self, fd, message, sz):
 		print("fd=%d sz=%d message={%s}" % (fd, sz, message))

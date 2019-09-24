@@ -38,6 +38,10 @@ def service_send(target, session, type, msg):
 	print('target=%d session=%d type=%d msg=%s len=%d' % (target, session, type, msg, len(msg)))
 	skynet.skynet_sendhandle(target, source, session, type, ctypes.c_char_p(msg.encode('utf-8')), len(msg))
 
+def set_timer(time):
+	print('set timer=%d' % (time))
+	skynet.skynet_timer_register(source, 0, 0, time)
+
 def http_response_send(target, fd, msg):
 	data = 'response|' + str(fd) + '|' + msg
 	service_send(target, fd, SERVICE_TEXT, data)

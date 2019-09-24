@@ -9,17 +9,19 @@ import gamed.GameServerHandler as GameServerHandler
 def create(nid, handle, args):
 	skynet.set_source(handle)
 	GameServerHandler.GameServerHandler().start(nid)
+	skynet.set_timer(1)
 
 def release():
 	pass
 
 def handle(handle, source, session, type, msg):
-	print(type, source, msg, len(msg))
 	if type == skynet.SERVICE_TEXT: 
+		print(type, source, msg, len(msg))
 		handleTextMsg(handle, source, session, msg)
 	elif type == skynet.SERVICE_TIMER:
 		handleTimerMsg(handle, source, session, msg)
 	elif type == skynet.SERVICE_RESPONSE:
+		print(type, source, msg, len(msg))
 		handleResponseMsg(handle, source, session, msg)
 	else:
 		skynet.logger_error('error handle message')
@@ -42,7 +44,8 @@ def handleTextMsg(handle, source, session, msg):
 		pass
 
 def handleTimerMsg(handle, source, session, msg):
-	pass
+	GameServerHandler.GameServerHandler().tick()
+	skynet.set_timer(3000)
 
 def handleResponseMsg(handle, source, session, msg):
 	Coroutine.send(session, msg)
