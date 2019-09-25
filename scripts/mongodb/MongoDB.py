@@ -13,27 +13,27 @@ class MongoDB(object):
 	def connect(self, uri):
 		self.conn = pymongo.MongoClient(uri);
 		if self.conn != None:
-			skynet.logger_notice('connect mongodb success, ' + uri)
+			skynet.logger_notice('[MongoDB]connect mongodb success, ' + uri)
 		else:
-			skynet.logger_error('connect mongodb failed, ' + uri)
+			skynet.logger_error('[MongoDB]connect mongodb failed, ' + uri)
 
 	def setDatabase(self, dbname):
 		self.database = self.conn[dbname]
 
 	def insert(self, collection, value):
-		skynet.logger_debug('[MongoDB] insert '+collection+':'+json.dumps(value))
+		skynet.logger_debug('[MongoDB]insert '+collection+':'+json.dumps(value))
 		self.database[collection].insert(value)
 
 	def update(self, collection, query, value):
-		skynet.logger_debug('[MongoDB] update '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
+		skynet.logger_debug('[MongoDB]update '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
 		self.database[collection].update(query, value, {upsert:False, multi:True})
 
 	def upsert(self, collection, query, value):
-		skynet.logger_debug('[MongoDB] upsert '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
+		skynet.logger_debug('[MongoDB]upsert '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
 		self.database[collection].upsert(query, value, {upsert:True, multi:True})
 
 	def remove(self, collection, query):
-		skynet.logger_debug('[MongoDB] remove '+collection+':'+json.dumps(query))
+		skynet.logger_debug('[MongoDB]remove '+collection+':'+json.dumps(query))
 		self.database[collection].remove(query)
 
 	def findAll(self, collection, query):
