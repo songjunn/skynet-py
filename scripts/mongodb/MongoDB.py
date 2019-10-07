@@ -26,11 +26,11 @@ class MongoDB(object):
 
 	def update(self, collection, query, value):
 		skynet.logger_debug('[MongoDB]update '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
-		self.database[collection].update(query, value, {upsert:False, multi:True})
+		self.database[collection].update(query, value)
 
 	def upsert(self, collection, query, value):
 		skynet.logger_debug('[MongoDB]upsert '+collection+', query:'+json.dumps(query)+', value:'+json.dumps(value))
-		self.database[collection].upsert(query, value, {upsert:True, multi:True})
+		self.database[collection].update(query, value, upsert=True)
 
 	def remove(self, collection, query):
 		skynet.logger_debug('[MongoDB]remove '+collection+':'+json.dumps(query))

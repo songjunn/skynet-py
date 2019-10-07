@@ -11,22 +11,23 @@ def create(nid, handle, args):
 
 	global mongo
 	mongo = MongoDB.MongoDB()
-	mongo.connect('mongodb://127.0.0.1:27017')
+	mongo.connect('mongodb://127.0.0.1:27000')
 
 def release():
 	global mongo
 	del mongo
 
 def handle(handle, source, session, type, msg):
-	print(type, source, msg, len(msg))
+	message = msg.decode()
 	if type == skynet.SERVICE_TEXT: 
-		handleTextMsg(handle, source, session, msg)
+		handleTextMsg(handle, source, session, message)
 	else:
 		skynet.logger_error('error handle message')
 
 def handleTextMsg(handle, source, session, msg):
 	args = msg.split('|')
 	cmd = args[0]
+	#print(args)
 
 	if cmd == 'update':
 		mongo.setDatabase(args[1])

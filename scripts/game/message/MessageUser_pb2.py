@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='Message',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x11MessageUser.proto\x12\x07Message\"\x95\x01\n\x0c\x43\x32SUserLogin\x12\x0e\n\x06userid\x18\x01 \x01(\t\x12\r\n\x05\x61ppid\x18\x02 \x01(\t\x12\x0e\n\x06ticket\x18\x03 \x01(\t\x12\x10\n\x08\x64\x65viceId\x18\x04 \x01(\t\x12\x0f\n\x07macaddr\x18\x05 \x01(\t\x12\x14\n\x0cmanufacturer\x18\x06 \x01(\t\x12\r\n\x05model\x18\x07 \x01(\t\x12\x0e\n\x06system\x18\x08 \x01(\t\"\xbf\x01\n\x0cS2CUserLogin\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x12\n\nlastplayer\x18\x02 \x01(\t\x12\x34\n\nplayerlist\x18\x03 \x03(\x0b\x32 .Message.S2CUserLogin.PlayerInfo\x1aX\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06gender\x18\x03 \x01(\x05\x12\x10\n\x08vocation\x18\x04 \x01(\x05\x12\r\n\x05level\x18\x05 \x01(\x05\"\x0f\n\rC2SUserLogout\"\x12\n\x10\x43\x32SUserHeartbeat\"!\n\x10S2CUserHeartbeat\x12\r\n\x05stime\x18\x01 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\x11MessageUser.proto\x12\x07Message\"\x93\x01\n\x0c\x43\x32SUserLogin\x12\x0e\n\x06userid\x18\x01 \x01(\x03\x12\r\n\x05\x61ppid\x18\x02 \x01(\t\x12\x0e\n\x06ticket\x18\x03 \x01(\t\x12\x0e\n\x06\x64\x65vice\x18\x04 \x01(\t\x12\x0f\n\x07macaddr\x18\x05 \x01(\t\x12\x14\n\x0cmanufacturer\x18\x06 \x01(\t\x12\r\n\x05model\x18\x07 \x01(\t\x12\x0e\n\x06system\x18\x08 \x01(\t\"j\n\x0bS2CUserInfo\x12\x0e\n\x06userid\x18\x01 \x01(\x03\x12\r\n\x05ranks\x18\x04 \x01(\x05\x12\r\n\x05level\x18\x05 \x01(\x05\x12\r\n\x05honor\x18\x06 \x01(\x05\x12\x0e\n\x06\x61\x63tion\x18\x07 \x01(\x05\x12\x0e\n\x06golden\x18\x08 \x01(\x05\"\x0f\n\rC2SUserLogout\"\x12\n\x10\x43\x32SUserHeartbeat\"!\n\x10S2CUserHeartbeat\x12\r\n\x05stime\x18\x01 \x01(\x03\x62\x06proto3')
 )
 
 
@@ -35,8 +35,8 @@ _C2SUSERLOGIN = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='userid', full_name='Message.C2SUserLogin.userid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -55,7 +55,7 @@ _C2SUSERLOGIN = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='deviceId', full_name='Message.C2SUserLogin.deviceId', index=3,
+      name='device', full_name='Message.C2SUserLogin.device', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -102,48 +102,55 @@ _C2SUSERLOGIN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=31,
-  serialized_end=180,
+  serialized_end=178,
 )
 
 
-_S2CUSERLOGIN_PLAYERINFO = _descriptor.Descriptor(
-  name='PlayerInfo',
-  full_name='Message.S2CUserLogin.PlayerInfo',
+_S2CUSERINFO = _descriptor.Descriptor(
+  name='S2CUserInfo',
+  full_name='Message.S2CUserInfo',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Message.S2CUserLogin.PlayerInfo.pid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='Message.S2CUserLogin.PlayerInfo.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='gender', full_name='Message.S2CUserLogin.PlayerInfo.gender', index=2,
-      number=3, type=5, cpp_type=1, label=1,
+      name='userid', full_name='Message.S2CUserInfo.userid', index=0,
+      number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='vocation', full_name='Message.S2CUserLogin.PlayerInfo.vocation', index=3,
+      name='ranks', full_name='Message.S2CUserInfo.ranks', index=1,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='level', full_name='Message.S2CUserLogin.PlayerInfo.level', index=4,
+      name='level', full_name='Message.S2CUserInfo.level', index=2,
       number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='honor', full_name='Message.S2CUserInfo.honor', index=3,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='action', full_name='Message.S2CUserInfo.action', index=4,
+      number=7, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='golden', full_name='Message.S2CUserInfo.golden', index=5,
+      number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -160,52 +167,8 @@ _S2CUSERLOGIN_PLAYERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=286,
-  serialized_end=374,
-)
-
-_S2CUSERLOGIN = _descriptor.Descriptor(
-  name='S2CUserLogin',
-  full_name='Message.S2CUserLogin',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='uid', full_name='Message.S2CUserLogin.uid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='lastplayer', full_name='Message.S2CUserLogin.lastplayer', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='playerlist', full_name='Message.S2CUserLogin.playerlist', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_S2CUSERLOGIN_PLAYERINFO, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=183,
-  serialized_end=374,
+  serialized_start=180,
+  serialized_end=286,
 )
 
 
@@ -228,8 +191,8 @@ _C2SUSERLOGOUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=376,
-  serialized_end=391,
+  serialized_start=288,
+  serialized_end=303,
 )
 
 
@@ -252,8 +215,8 @@ _C2SUSERHEARTBEAT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=393,
-  serialized_end=411,
+  serialized_start=305,
+  serialized_end=323,
 )
 
 
@@ -266,8 +229,8 @@ _S2CUSERHEARTBEAT = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='stime', full_name='Message.S2CUserHeartbeat.stime', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -283,60 +246,50 @@ _S2CUSERHEARTBEAT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=413,
-  serialized_end=446,
+  serialized_start=325,
+  serialized_end=358,
 )
 
-_S2CUSERLOGIN_PLAYERINFO.containing_type = _S2CUSERLOGIN
-_S2CUSERLOGIN.fields_by_name['playerlist'].message_type = _S2CUSERLOGIN_PLAYERINFO
 DESCRIPTOR.message_types_by_name['C2SUserLogin'] = _C2SUSERLOGIN
-DESCRIPTOR.message_types_by_name['S2CUserLogin'] = _S2CUSERLOGIN
+DESCRIPTOR.message_types_by_name['S2CUserInfo'] = _S2CUSERINFO
 DESCRIPTOR.message_types_by_name['C2SUserLogout'] = _C2SUSERLOGOUT
 DESCRIPTOR.message_types_by_name['C2SUserHeartbeat'] = _C2SUSERHEARTBEAT
 DESCRIPTOR.message_types_by_name['S2CUserHeartbeat'] = _S2CUSERHEARTBEAT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-C2SUserLogin = _reflection.GeneratedProtocolMessageType('C2SUserLogin', (_message.Message,), dict(
-  DESCRIPTOR = _C2SUSERLOGIN,
-  __module__ = 'MessageUser_pb2'
+C2SUserLogin = _reflection.GeneratedProtocolMessageType('C2SUserLogin', (_message.Message,), {
+  'DESCRIPTOR' : _C2SUSERLOGIN,
+  '__module__' : 'MessageUser_pb2'
   # @@protoc_insertion_point(class_scope:Message.C2SUserLogin)
-  ))
+  })
 _sym_db.RegisterMessage(C2SUserLogin)
 
-S2CUserLogin = _reflection.GeneratedProtocolMessageType('S2CUserLogin', (_message.Message,), dict(
+S2CUserInfo = _reflection.GeneratedProtocolMessageType('S2CUserInfo', (_message.Message,), {
+  'DESCRIPTOR' : _S2CUSERINFO,
+  '__module__' : 'MessageUser_pb2'
+  # @@protoc_insertion_point(class_scope:Message.S2CUserInfo)
+  })
+_sym_db.RegisterMessage(S2CUserInfo)
 
-  PlayerInfo = _reflection.GeneratedProtocolMessageType('PlayerInfo', (_message.Message,), dict(
-    DESCRIPTOR = _S2CUSERLOGIN_PLAYERINFO,
-    __module__ = 'MessageUser_pb2'
-    # @@protoc_insertion_point(class_scope:Message.S2CUserLogin.PlayerInfo)
-    ))
-  ,
-  DESCRIPTOR = _S2CUSERLOGIN,
-  __module__ = 'MessageUser_pb2'
-  # @@protoc_insertion_point(class_scope:Message.S2CUserLogin)
-  ))
-_sym_db.RegisterMessage(S2CUserLogin)
-_sym_db.RegisterMessage(S2CUserLogin.PlayerInfo)
-
-C2SUserLogout = _reflection.GeneratedProtocolMessageType('C2SUserLogout', (_message.Message,), dict(
-  DESCRIPTOR = _C2SUSERLOGOUT,
-  __module__ = 'MessageUser_pb2'
+C2SUserLogout = _reflection.GeneratedProtocolMessageType('C2SUserLogout', (_message.Message,), {
+  'DESCRIPTOR' : _C2SUSERLOGOUT,
+  '__module__' : 'MessageUser_pb2'
   # @@protoc_insertion_point(class_scope:Message.C2SUserLogout)
-  ))
+  })
 _sym_db.RegisterMessage(C2SUserLogout)
 
-C2SUserHeartbeat = _reflection.GeneratedProtocolMessageType('C2SUserHeartbeat', (_message.Message,), dict(
-  DESCRIPTOR = _C2SUSERHEARTBEAT,
-  __module__ = 'MessageUser_pb2'
+C2SUserHeartbeat = _reflection.GeneratedProtocolMessageType('C2SUserHeartbeat', (_message.Message,), {
+  'DESCRIPTOR' : _C2SUSERHEARTBEAT,
+  '__module__' : 'MessageUser_pb2'
   # @@protoc_insertion_point(class_scope:Message.C2SUserHeartbeat)
-  ))
+  })
 _sym_db.RegisterMessage(C2SUserHeartbeat)
 
-S2CUserHeartbeat = _reflection.GeneratedProtocolMessageType('S2CUserHeartbeat', (_message.Message,), dict(
-  DESCRIPTOR = _S2CUSERHEARTBEAT,
-  __module__ = 'MessageUser_pb2'
+S2CUserHeartbeat = _reflection.GeneratedProtocolMessageType('S2CUserHeartbeat', (_message.Message,), {
+  'DESCRIPTOR' : _S2CUSERHEARTBEAT,
+  '__module__' : 'MessageUser_pb2'
   # @@protoc_insertion_point(class_scope:Message.S2CUserHeartbeat)
-  ))
+  })
 _sym_db.RegisterMessage(S2CUserHeartbeat)
 
 

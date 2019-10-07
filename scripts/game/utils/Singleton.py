@@ -1,14 +1,24 @@
 # -*- coding: utf-8 -*-
-import threading
+#import threading
 
 class Singleton(object):
     objs = {}
-    objs_locker =  threading.Lock()
+    #objs_locker =  threading.Lock()
 
     def __new__(cls, *args, **kv):
         if cls in cls.objs:
             return cls.objs[cls]['obj']
-        cls.objs_locker.acquire()
+
+        obj = object.__new__(cls)
+        cls.objs[cls] = {'obj': obj,'init': False}
+        setattr(cls, '__init__',cls.decorate_init(cls.__init__))
+        return cls.objs[cls]['obj']
+
+    ''' 多线程
+    def __new__(cls, *args, **kv):
+        if cls in cls.objs:
+            return cls.objs[cls]['obj']
+        #cls.objs_locker.acquire()
 
         try:
             if cls in cls.objs: ## double checklocking
@@ -19,6 +29,7 @@ class Singleton(object):
             return cls.objs[cls]['obj']
         finally:
             cls.objs_locker.release()
+    '''
 
     @classmethod
     def decorate_init(cls, fn):

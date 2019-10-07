@@ -1,30 +1,25 @@
 # -*- coding: utf-8 -*-
 
 import json
-import skynet
-import utils.Coroutine as Coroutine
-import google.protobuf.text_format as text_format
-
-import message.MessageTypeDefine_pb2 as MessageTypeDefine_pb2
-import message.MessageUser_pb2 as MessageUser_pb2
-
-def handleC2SGuestLogin(data):
-	print("handleC2SGuestLogin:" + data.name)
-	pass
+import User as User
+import UserMgr as UserMgr
 
 def handleC2SUserLogin(sid, **kwargs):
+	fd = kwargs['fd']
 	data = kwargs['data']
-	j = {}
-	j['appid'] = data.appid
-	j['userid'] = data.userid
-	j['ticket'] = data.ticket
+	userId = data.userid
+	
+	user = UserMgr.UserMgr().getUser(userId)
+	if (user == None):
+		User.loadUser(sid, userId)
+		user = yield
+		
+		if (len(user) == 0):
+			user = User.createUser(userId)
+		else:
+			user = json.loads(user)
 
-	q = {}
-	q['userid'] = data.userid
-
-	skynet.mongo_findone(sid, 'user', 'user', json.dumps(q))
-	userData = yield
-	print('userData: %s' % (userData))
-
-	if userData == '':
-		skynet.mongo_insert('user', 'user', json.dumps(j))
+	User.loginUser(user, fd)
+	User.sendUserInfo(user)
+	User.saveUser(user)
+	UserMgr.UserMgr().addUser(user['userid'], user)
