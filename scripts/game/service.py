@@ -9,7 +9,7 @@ import AdminServer as AdminServer
 def create(nid, handle, args):
 	skynet.set_source(handle)
 	GameServer.GameServer().start(nid)
-	#skynet.set_timer(1)
+	skynet.set_timer(1000)
 
 def release():
 	pass
@@ -45,7 +45,7 @@ def handleTextMsg(handle, source, fd, msg):
 
 def handleTimerMsg(handle, source, session, msg):
 	GameServer.GameServer().tick()
-	skynet.set_timer(3000)
+	skynet.set_timer(1000)
 
 def handleResponseMsg(handle, source, session, msg):
 	message = msg.decode()
