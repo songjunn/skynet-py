@@ -19,7 +19,8 @@ class GameServer(Singleton.Singleton):
 		skynet.logger_debug('[Game]service quit, id={}'.format(self.nid_))
 
 	def tick(self):
-		skynet.logger_debug('[Game]server handler tick...')
+		pass
+		#skynet.logger_debug('[Game]server handler tick...')
 
 	def sendClientMsg(self, fd, type, proto):
 		message = proto.SerializeToString()
