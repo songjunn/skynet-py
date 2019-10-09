@@ -48,7 +48,7 @@ def http_response_send(target, fd, msg):
 
 def gate_forward_send(fd, msg):
 	data = b'forward|' + msg
-	skynet.skynet_sendname(b'gate', source, fd, SERVICE_TEXT, ctypes.c_char_p(data), len(data))
+	skynet.skynet_sendname(b'gatews', source, fd, SERVICE_TEXT, ctypes.c_char_p(data), len(data))
 
 def gate_kick_send(target, fd):
 	data = 'kick'

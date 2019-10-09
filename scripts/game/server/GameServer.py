@@ -25,8 +25,8 @@ class GameServer(Singleton.Singleton):
 	def sendClientMsg(self, fd, type, proto):
 		message = proto.SerializeToString()
 		size = 4 + len(message)
-		s = struct.Struct('ii' + str(size-4) + 's')
-		v = (size, type, message)
+		s = struct.Struct('i' + str(size-4) + 's')
+		v = (type, message)
 		data = s.pack(*v)
 		skynet.gate_forward_send(fd, data) 
 		skynet.logger_debug('[Game]Send message {} to {} size {}: {{{}}}'.format(type, fd, size, text_format.MessageToString(proto, True, True)))
