@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import struct
+import struct, socket
 import skynet
 import Coroutine as Coroutine
 import Singleton as Singleton
@@ -34,6 +34,7 @@ class GameServer(Singleton.Singleton):
 	def recvClientMsg(self, fd, message, sz):
 		type, req = struct.unpack('i'+str(sz-4)+'s', message)
 		print(type, req)
+		print(socket.ntohl(type), socket.htonl(type))
 
 		proto = register.protocols.get(type)
 		proto.ParseFromString(req)
