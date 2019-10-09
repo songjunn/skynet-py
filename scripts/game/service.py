@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, socket
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import include
 import skynet
@@ -31,7 +31,9 @@ def handleTextMsg(handle, source, fd, msg):
 	data = args[2]
 
 	skynet.logger_debug('[Game]handle text msg: handle=%d source=%d fd=%d msg=%s' % (handle, source, fd, msg))
-	skynet.logger_debug('[Game]handle text cmd=%s data=%s size=%d' % (cmd, data, size))
+	skynet.logger_debug('[Game]handle text aaaaaaa cmd=%s data=%s size=%d' % (cmd, data, size))
+	skynet.logger_debug('[Game]handle text bbbbbbb cmd=%s data=%s size=%d' % (cmd, data, socket.ntohl(size)))
+	skynet.logger_debug('[Game]handle text ccccccc cmd=%s data=%s size=%d' % (cmd, data, socket.htonl(size)))
 
 	if cmd == 'forward':
 		GameServer.GameServer().recvClientMsg(fd, data, size)
