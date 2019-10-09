@@ -33,6 +33,7 @@ class GameServer(Singleton.Singleton):
 
 	def recvClientMsg(self, fd, message, sz):
 		type, req = struct.unpack('i'+str(sz-4)+'s', message)
+		print(type, req)
 
 		proto = register.protocols.get(type)
 		proto.ParseFromString(req)
