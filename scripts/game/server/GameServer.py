@@ -33,8 +33,9 @@ class GameServer(Singleton.Singleton):
 
 	def recvClientMsg(self, fd, message, sz):
 		type, req = struct.unpack('i'+str(sz-4)+'s', message)
+		type = socket.ntohl(type)
 		print(type, req)
-		print(socket.ntohl(type), socket.htonl(type))
+		#print(socket.ntohl(type), socket.htonl(type))
 
 		proto = register.protocols.get(type)
 		proto.ParseFromString(req)
