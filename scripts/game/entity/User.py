@@ -29,14 +29,14 @@ def logoutUser(user):
 def loadUser(session, userId):
 	q = {'userid': userId}
 	query = json.dumps(q)
-	skynet.mongo_findone(session, 'honorwar', 'user', query)
+	skynet.mongo_findone(session, 'skynet-py', 'user', query)
 
 def saveUser(user):
 	query = {'userid': user['userid']}
 	query = json.dumps(query)
 	value = pbjson.dict2pb(user, DBObject.DBPlayer)
 	value = pbjson.pb2json(value)
-	skynet.mongo_upsert('honorwar', 'user', query, value)
+	skynet.mongo_upsert('skynet-py', 'user', query, value)
 
 def sendMessage(user, type, message):
 	fd = user['fd']
