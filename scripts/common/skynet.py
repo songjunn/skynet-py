@@ -55,9 +55,9 @@ def gate_kick_send(target, fd):
 	service_send(target, fd, SERVICE_TEXT, data)
 
 def mongo_findone(sid, dbname, collec, query):
-	s = 'findone|{}|{}|{}'.format(dbname, collec, query)
-	skynet.skynet_sendname(b'mongo', source, sid, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))
+	s = 'findone|{}|{}|{}'.format(dbname, collec, query).encode('utf-8')
+	skynet.skynet_sendname(b'mongo', source, sid, SERVICE_TEXT, ctypes.c_char_p(s), len(s))
 
 def mongo_upsert(dbname, dbcollec, query, value):
-	s = 'upsert|{}|{}|{}|{}'.format(dbname, dbcollec, query, value)
-	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(s.encode('utf-8')), len(s))
+	s = 'upsert|{}|{}|{}|{}'.format(dbname, dbcollec, query, value).encode('utf-8')
+	skynet.skynet_sendname(b'mongo', source, 0, SERVICE_TEXT, ctypes.c_char_p(s), len(s))

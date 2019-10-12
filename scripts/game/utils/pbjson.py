@@ -15,5 +15,5 @@ def json2pb(json, cls):
     return obj
 
 def pb2json(pb):
-    obj = json_format.MessageToJson(pb, including_default_value_fields=True, preserving_proto_field_name=True, indent=1)
+    obj = json_format.MessageToJson(pb, including_default_value_fields=True, preserving_proto_field_name=True, indent=None)
     return obj
